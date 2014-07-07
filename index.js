@@ -47,10 +47,7 @@ var proto = {
 
         function locate(name, locale) {
             var relative = path.join(root, locale.country, locale.language);
-            var val = util.locate(name, root, relative);
-            setImmediate(function () {
-                cb(null, val);
-            });
+            util.locate(name, root, relative, cb);
         }
 
     }
