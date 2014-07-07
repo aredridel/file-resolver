@@ -28,12 +28,6 @@ var proto = {
         return this._fallback;
     },
 
-    _locate: function (name, locale) {
-        var relative = path.join(this._root, locale.country, locale.language);
-        var val = util.locate(name, this._root, relative);
-        return val;
-    },
-
     /**
      * Finds a file that matches the provided name, falling back to a root directory.
      * @param name
@@ -45,13 +39,20 @@ var proto = {
             cb = locale;
             locale = void 0;
         }
-        var match, loc;
+        var match, loc, root;
         name = name + this._ext;
+        root = this._root;
         loc = locale ? util.parseLangTag(locale) : this._fallback;
-        match = this._locate(name, loc);
-        setImmediate(function () {
-            cb(null, match);
-        });
+        locate(name, loc);
+
+        function locate(name, locale) {
+            var relative = path.join(root, locale.country, locale.language);
+            var val = util.locate(name, root, relative);
+            setImmediate(function () {
+                cb(null, val);
+            });
+        }
+
     }
 
 };

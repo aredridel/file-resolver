@@ -18,14 +18,12 @@ test('fileResolver', function (t) {
     t.test('Creating a file resolver with options', function (t) {
         resolvr = fileResolver.create({root: process.cwd() + '/test/fixtures/root', fallback: 'en_US', ext: 'dust'});
         t.deepEqual(resolvr.fallbackLocale, { country: 'US', language: 'en' });
-        t.equal(typeof resolvr._locate, 'function');
         t.end();
     });
 
     t.test('Creating a file resolver with options', function (t) {
         resolvr = fileResolver.create({root: process.cwd() + '/test/fixtures/root', fallback: 'en_US', ext: '.dust'});
         t.deepEqual(resolvr.fallbackLocale, { country: 'US', language: 'en' });
-        t.equal(typeof resolvr._locate, 'function');
         t.end();
     });
 
@@ -57,7 +55,6 @@ test('fileResolver', function (t) {
     t.test('Creating a file resolver with options', function (t) {
         resolvr = fileResolver.create({root: process.cwd() + '/test/fixtures/root', ext: 'dust'});
         t.deepEqual(resolvr.fallbackLocale, { country: '', language: '' });
-        t.equal(typeof resolvr._locate, 'function');
         t.end();
     });
 
@@ -86,7 +83,6 @@ test('fileResolver', function (t) {
     t.test('Creating a file resolver with invalid root', function (t) {
         resolvr = fileResolver.create({root: process.cwd() + '/test/fixtures', ext: 'dust'});
         t.deepEqual(resolvr.fallbackLocale, { country: '', language: '' });
-        t.equal(typeof resolvr._locate, 'function');
         resolvr.resolve('test', function (err, info) {
             t.notOk(err, 'no error');
             t.equal(info.root, undefined);
@@ -100,7 +96,6 @@ test('fileResolver', function (t) {
     t.test('Creating a file resolver with invalid locale', function (t) {
         resolvr = fileResolver.create({root: process.cwd() + '/test/fixtures/root', ext: 'dust', fallback: 'es'});
         t.deepEqual(resolvr.fallbackLocale, { country: '', language: 'es' });
-        t.equal(typeof resolvr._locate, 'function');
         t.end();
     });
 });
